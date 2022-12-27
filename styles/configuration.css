@@ -1,0 +1,89 @@
+/* configuration.css의 담당 역할: 구성과 관련된 스타일 담당 */
+
+#config-overlay {
+  text-align: center;
+}
+
+#config-overlay h2 {
+  /* config-overlay라는 id선택자에 속한, h2태그?에 스타일 적용 */
+  margin: 0.5rem 0;
+}
+
+.form-control {
+  margin: 0.5rem 0;
+}
+
+.form-control label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.form-control input {
+  font: inherit;
+}
+
+.form-control input {
+  font: inherit;
+  border: 1px solid rgb(204, 204, 204);
+  width: 15rem;
+  padding: 0.35rem;
+}
+
+.error label {
+  /* error라는 id선택자에 속한, label태그?에 스타일 적용 */
+  color: rgb(136, 2, 2);
+}
+
+.error input {
+  /* error라는 id선택자에 속한, input태그?에 스타일 적용 */
+  border-color: rgb(136, 2, 2);
+  color: rgb(136, 2, 2);
+  background-color: rgb(253, 219, 219);
+}
+
+#game-configuration {
+  width: 90%;
+  max-width: 40rem; /* 최대 너비 제한 */
+  margin: 3rem auto;
+  text-align: center;
+}
+
+#game-configuration ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+/* 참고: #game-configuration ol li {}의 경우,
+game-configuration라는 id선택자에 속한, ol에 속한, li태그?에 스타일 적용을 의미한다. */
+
+#game-configuration li {
+  /* game-configuration라는 id선택자에 속한 h2태그에 스타일 적용 
+  li가 하나 밖에 없기 때문에, 굳이 #game-configuration ol li {}를 쓰지 않아도 괜찮다. */
+  margin: 1rem;
+  padding: 1rem;
+  width: 50%;
+  background-color: rgb(243, 227, 255);
+  border-radius: 4px;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
+}
+
+#game-configuration h2 {
+  font-size: 1rem;
+  margin: 0.5rem 0;
+}
+
+#game-configuration h3 {
+  font-size: 1.5rem;
+  margin: 0.5rem 0;
+  color: rgb(94, 4, 168);
+}
+
+.play-symbol {
+  font-size: 2rem;
+  font-weight: bold;
+  color: rgb(47, 4, 82);
+  margin: 0.5rem 0;
+}

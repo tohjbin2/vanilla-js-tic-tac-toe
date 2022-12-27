@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tic Tac Toe</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles/style.css" />
+    <link rel="stylesheet" href="./styles/overlays.css" />
+    <link rel="stylesheet" href="./styles/configuration.css" />
+    <link rel="stylesheet" href="./styles/game.css" />
+    <script src="/scripts/config.js" defer></script>
+    <script src="./scripts/game.js" defer></script>
+    <script src="./scripts/app.js" defer></script>
+    <!-- 
+      defer속성:
+      1-1. 현재 페이지의 전체 html 내용이 로드되고 분석된 후에만(loaded and parse)
+      scripts가 실행되게 만든다. 그렇지 않으면 여기에서 DOM과 상호작용을 할 수 없다.
+      1-2. 원문: Now very important. We Should add the 'defer' attribute to all these scripts to ensure /
+      that they are only executed HTML content of this page has been loaded and parsed,
+      otherwise interacting with the DOM won't be possible here.
+      2. 쉽게 말해, script태그 안에 defer을 입력한 것 =  /body태그 직전에 <script>태그를 넣은 것! 둘은 동일한 기능을 한다. 
+    -->
+    <!-- '브라우저에 있는 자바스크립트(html문서에 scripts로 적용한 자바스크립트)'에서 자바스크립트가 여러 개인 경우:
+      1-1. A와 B라는 js파일이 scripts로 두 개 적용되었다고 가정한다. 놀랍게도 A에 있는 함수나 상수를 B파일에서 사용이 가능하다. 별도의 적용 없이도!
+      1-2. 그러나 주의할 점! 위에서 아래로 전달된다! 
+      <script src="./scripts/A.js" defer></script>
+      <script src="./scripts/B.js" defer></script>
+      위의 경우라면 A에서 B로 전달이 된다. 이유는 위에서부터 아래 순서로 실행되기 때문이다. 그래서 전달 방향을 생각해 js파일을 적절한 순서로 위치시켜야 한다. -->
+  </head>
+  <body>
+    <div id="backdrop"></div>
+    <header id="main-header">
+      <h1>Play Tic, Tac, Toe</h1>
+      <p>Built with HTML, CSS JavaScript and - of course - lots of love!</p>
+    </header>
+    <main>
+      <aside class="modal" id="config-overlay">
+        <!--  <aside class="modal" id="config-overlay">:
+          동일한 태그에 class와 id를 모두 사용할 수 있다. -->
+        <h2>Choose your name</h2>
+
+        <form>
+          <div class="form-control">
+            <label for="playername">Player name</label>
+            <input type="text" name="playername" id="playername" required />
+            <!-- required속성: 
+              html속성. input에 required를 입력함으로써, 해당 input에 대한 경고창을 받을 수 있다. -->
+          </div>
+          <p id="config-errors"></p>
+          <div>
+            <button type="reset" class="btn btn-alt" id="cancel-config-btn">
+              <!-- 'Cancel'버튼을 눌러 모달창을 닫고 다시 모달창을 열었을 때, input창을 빈 공간으로 만들고 싶어, button의 type을 button에서 reset으로 변경했다. -->
+              Cancel
+            </button>
+            <button type="submit" class="btn">Confirm</button>
+          </div>
+        </form>
+      </aside>
+      <section id="game-configuration">
+        <ol>
+          <li>
+            <article id="player-1-data">
+              <h2>Player 1</h2>
+              <h3>PLAYER NAME</h3>
+              <p class="play-symbol">X</p>
+              <button
+                class="btn btn-alt"
+                id="edit-player-1-btn"
+                data-playerid="1"
+              >
+                Edit
+              </button>
+              <!-- <button class="btn btn-alt">Edit</button>:
+              class가 2개 적용된 것이다. 당연히 둘은 별개의 class이다. (btn과 btn-alt) -->
+              <!-- data 속성: 
+              html 속성. data-형태로 사용한다(반드시 대쉬(-)까지 붙여야 함). 
+              1. 대쉬(-) 이후에 원하는 식별자 이름을 지어서 넣는다(id, class를 이름을 지을 때 처럼). 
+              참고로 식별자 이름 사이에 대쉬(-)가 들어가도 괜찮다
+              (player-id와 같은 형식으로 써도 에러가 나지 않는다는 말이다).
+              2. data-test="1"를 예시로 들 때, "1"는 키값에 해당한다. ""에 들어간 키값을 사용해 해당 데이터를 읽을 수 있다. 
+              키값으로는 문자열만 올 수 있다. 숫자를 넣더라도 문자열로 처리된다.
+              3. 동일한 요소에 2개 이상의 data속성을 할당할 수 있다.
+              4-1. html에서 할당한 데이터 값은 자바스크립트에서 이용할 수 있다. 
+              자바스크립트에서 dataset속성을 사용해 가져올 수 있다. 
+              4-2. js에서 다음 형태로 가져온다: 해당html요소(태그).dataset.data속성으로지정한이름
+              예시: event.target.dataset.playerid; (config.js에서 이렇게 사용함) -->
+            </article>
+          </li>
+          <li>
+            <article id="player-2-data">
+              <h2>Player 2</h2>
+              <h3>PLAYER NAME</h3>
+              <p class="play-symbol">O</p>
+              <button
+                class="btn btn-alt"
+                id="edit-player-2-btn"
+                data-playerid="2"
+              >
+                Edit
+              </button>
+            </article>
+          </li>
+        </ol>
+        <button class="btn" id="start-game-btn">Start New Game</button>
+      </section>
+
+      <section id="active-game">
+        <article id="game-over">
+          <h2>You won, <span id="winner-name">PLAYER NAME</span>!</h2>
+          <p>Click "Start New Game" above, to start a new game!</p>
+        </article>
+
+        <p>It's your turn <span id="active-player-name">PLAYER NAME</span>!</p>
+        <ol id="game-board">
+          <!-- 참고: 
+          row: 행(가로, 위에서 아래)
+          column: 열(세로, 왼쪽에서 오른쪽) -->
+          <li data-col="1" data-row="1"></li>
+          <li data-col="2" data-row="1"></li>
+          <li data-col="3" data-row="1"></li>
+
+          <li data-col="1" data-row="2"></li>
+          <li data-col="2" data-row="2"></li>
+          <li data-col="3" data-row="2"></li>
+
+          <li data-col="1" data-row="3"></li>
+          <li data-col="2" data-row="3"></li>
+          <li data-col="3" data-row="3"></li>
+        </ol>
+      </section>
+    </main>
+  </body>
+</html>
